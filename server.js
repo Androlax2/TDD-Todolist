@@ -1,7 +1,13 @@
 const express = require('express'),
     app = express(),
-    port = 3000;
+    bodyParser = require('body-parser'),
+    port = 3000,
+    routes = require('./api/routes/todoListRoutes');
 
-app.listen(port);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.text({defaultCharset: "utf-8"}));
 
-console.log('todo list RESTFUL API server started on: ' + port);
+routes(app); //register the route
+
+module.exports = app;

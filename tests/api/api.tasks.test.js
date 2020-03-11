@@ -1,7 +1,11 @@
 const app = require('../../server');
-const mongoose = require('mongoose');
 const supertest = require('supertest');
-const request = supertest('app');
+const request = supertest(app);
+
+const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+
+const mongod = new MongoMemoryServer();
 
 const Task = require('../../models/Task');
 
@@ -42,9 +46,9 @@ describe('API TODOLIST', () => {
             const firstTask = new Task({name: 'Ma première tâche'});
             const secondTask = new Task({name: 'Ma seconde tâche'});
             const thirdTask = new Task({name: 'Ma troisième tâche'});
-            const savecFirstTask = await firstTask.save();
-            const savecSecondTask = await secondTask.save();
-            const savecThirdask = await thirdTask.save();
+            const savedFirstTask = await firstTask.save();
+            const savedSecondTask = await secondTask.save();
+            const savedThirdask = await thirdTask.save();
 
             const res = await request.get('/tasks');
 
@@ -56,20 +60,21 @@ describe('API TODOLIST', () => {
         });
 
         // All tests for task retrieved by an ID
-        describe('GET /tasks/:taskID', () => {
+        /* describe('GET /tasks/:taskID', () => {
             // Continuer
-        })
+        }); */
 
     });
 
     // All tests for POST /tasks (create a task)
+    /*
     describe('POST /tasks', () => {
         // Continuer
-    });
+    }); */
 
     // All tests for PUT /tasks (update a task)
-    describe('PUT /tasks', () => {
+    /* describe('PUT /tasks', () => {
         // Continuer
-    });
+    }); */
 
 });
