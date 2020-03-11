@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
     "start": "nodemon server.js"
   },
   "devDependencies": {
@@ -15,5 +16,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.9.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
