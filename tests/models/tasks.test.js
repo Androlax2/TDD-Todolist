@@ -3,6 +3,8 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongod = new MongoMemoryServer();
 
+const Task = require('../../models/Task');
+
 /**
  * Connect to a new in-memory database before running any tests.
  */
@@ -38,4 +40,19 @@ afterAll(async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
     await mongod.stop();
+});
+
+describe('Task Model Test', () => {
+
+    it('create & save a task successfully', async () => {
+        const validTask = new Task({
+            name: 'Le nom de ma première tâche'
+        });
+        const savedTask = await validTask.save();
+
+        expect(savedTask.name).toBeDefined();
+        expect(savedTask.status).toBeDefined();
+        expect(savedTask.created_at).toBeDefined();
+    });
+
 });
